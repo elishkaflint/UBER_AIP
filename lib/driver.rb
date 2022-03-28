@@ -1,5 +1,6 @@
 class Driver
   DEFAULT_TO_PAY = 0
+  CANCELLATION_FEE = 10
 
   attr_reader :total_to_pay, :name, :registration_number
 
@@ -12,4 +13,9 @@ class Driver
   def pay(amount)
     @total_to_pay += amount
   end
+
+  def pay_cancellation_fee
+    self.pay(CANCELLATION_FEE)
+  end
+
 end

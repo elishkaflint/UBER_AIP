@@ -20,4 +20,11 @@ describe Driver do
       expect(driver.total_to_pay).to eq 15
     end
   end
+
+  describe 'cancellation_fee method' do
+    it 'charges a default cancellation fee' do
+      driver.pay_cancellation_fee
+      expect(driver.total_to_pay).to eq Driver::CANCELLATION_FEE
+    end
+  end
 end
