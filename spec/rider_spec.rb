@@ -3,14 +3,15 @@ require 'driver'
 require 'journey'
 
 describe Rider do
-  let(:journey) { double(:journey)}
+  let(:journey) { double(:journey) }
   let(:driver) { double(:driver)}
-  let(:rider) { Rider.new(journey, "Sam Rider", "07777777777") }
+  let(:rider) { Rider.new(journey, "Sam Rider", "07777777777", "1234-5678-90") }
 
   describe 'on initialize' do
-    it 'sets name and phone_number' do
+    it 'sets name and phone_number and card_number' do
       expect(rider.name).to eq "Sam Rider"
       expect(rider.phone_number).to eq "07777777777"
+      expect(rider.card_number).to eq "1234-5678-90"
     end
   end
 
@@ -29,9 +30,10 @@ describe Rider do
   end
 
   describe 'end_journey method' do
-    before do 
+    before do
       allow(driver).to receive(:pay)
       allow(journey).to receive(:set_pick_up_point)
+      allow(journey).to receive(:pick_up_point).and_return "Buckley Building"
       allow(journey).to receive(:set_drop_off_point)
       allow(journey).to receive(:fare).and_return 5
     end
@@ -51,6 +53,20 @@ describe Rider do
     it 'if pick up and drop off points are the same an exception is thrown' do
       rider.start_journey(driver, "Buckley Building")
       expect { rider.end_journey("Buckley Building") }.to raise_exception "Pick up and drop off points are the same"
+    end
+  end
+
+  describe 'cancel_journey method' do
+    before do
+      allow(driver).to receive(:pay)
+      allow(driver).to receive(:pay_cancellation_fee)
+      allow(journey).to receive(:set_pick_up_point)
+    end
+
+    it 'if rider cancels journey then driver is paid' do
+      rider.start_journey(driver, "Buckley Building")
+      rider.cancel_journey
+      expect(driver).to have_received(:pay_cancellation_fee)
     end
   end
 end
