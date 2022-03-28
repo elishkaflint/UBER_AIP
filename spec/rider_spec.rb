@@ -3,7 +3,7 @@ require 'driver'
 require 'journey'
 
 describe Rider do
-  let(:journey) { double(:journey)}
+  let(:journey) { double(:journey) }
   let(:driver) { double(:driver)}
   let(:rider) { Rider.new(journey, "Sam Rider", "07777777777") }
 
@@ -29,9 +29,10 @@ describe Rider do
   end
 
   describe 'end_journey method' do
-    before do 
+    before do
       allow(driver).to receive(:pay)
       allow(journey).to receive(:set_pick_up_point)
+      allow(journey).to receive(:pick_up_point).and_return "Buckley Building"
       allow(journey).to receive(:set_drop_off_point)
       allow(journey).to receive(:fare).and_return 5
     end

@@ -14,6 +14,9 @@ class Rider
 
   def end_journey(drop_off_point)
     @journey.set_drop_off_point(drop_off_point)
+    if drop_off_point == @journey.pick_up_point
+      raise "Pick up and drop off points are the same"
+    end
 
     amount = @journey.fare
     @driver.pay(amount)

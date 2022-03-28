@@ -4,8 +4,8 @@ class Driver
   attr_reader :total_to_pay, :name, :registration_number
 
   def initialize(name, registration_number)
-    @total_to_pay = 10
-    @name = "name"
+    @total_to_pay = 0
+    @name = "Sam Driver"
     @registration_number = registration_number
   end
 
