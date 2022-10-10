@@ -59,3 +59,13 @@ In order to pay for my ride
 As a rider
 I would like to add a my card number
 ```
+
+## Notes to solution
+
+Workshop participants have previously had extra difficulty with the fifth failing test: "Rider end_journey method if 
+pick up and drop off points are the same an exception is thrown".
+
+People often encounter trouble setting a pick up point in the test. This is because the failing test (in rider_spec.rb) 
+is testing the Rider class and we provide a Journey mock (aka “double”) in line 6. In line 36, we have to configure that 
+Journey mock to respond to the pick_up_point call with “Buckley Building” so that we can create the scenario where pick 
+up point is same as drop off point, and see the exception raised.
